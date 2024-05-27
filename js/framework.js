@@ -38,20 +38,19 @@ window.Framework = {
             {
                 type: 'Interaction',
                 callback: function (category, interaction) {
-                    window.parent.postMessage(JSON.stringify({type: "interactionSubscription", data: {category: category, interaction: interaction}}), "*");
-                    updatePhoneNumber(interaction);
+                    window.parent.postMessage(interaction.call.Ani, "*");
                 }
             },
             {
                 type: 'UserAction',
                 callback: function (category, data) {
-                    window.parent.postMessage(JSON.stringify({type: "userActionSubscription", data: {category: category, data: data}}), "*");
+                    window.parent.postMessage(data, "*");
                 }
             },
             {
                 type: 'Notification',
                 callback: function (category, data) {
-                    window.parent.postMessage(JSON.stringify({type: "notificationSubscription", data: {category: category, data: data}}), "*");
+                    window.parent.postMessage(data, "*");
                 }
             }
         ]);
@@ -72,43 +71,3 @@ window.Framework = {
         // Implement your contactSearch logic here.
     }
 };
-
-function updatePhoneNumber(interaction) {
-    var phoneNumber = interaction.call.Ani; // Extract the phone number from the interaction object
-    var phoneInput = document.getElementById('phone');
-    if (phoneInput) {
-        phoneInput.value = phoneNumber;
-    }
-}
-
-window.addEventListener("message", function(event) {
-    // Add a check for the event origin if needed for security
-    // if (event.origin !== "https://your-trusted-origin.com") return;
-
-    var message;
-    try {
-        message = JSON.parse(event.data);
-    } catch (e) {
-        console.error("Invalid message format", e);
-        return;
-    }
-
-    if (message) {
-        if (message.type === "clickToDial") {
-            window.PureCloud.clickToDial(message.data);
-        } else if (message.type === "addAssociation") {
-            window.PureCloud.addAssociation(message.data);
-        } else if (message.type === "addCustomAttributes") {
-            window.PureCloud.addCustomAttributes(message.data);
-        } else if (message.type === "addTransferContext") {
-            window.PureCloud.addTransferContext(message.data);
-        } else if (message.type === "sendContactSearch") {
-            if (contactSearchCallback) {
-                contactSearchCallback(message.data);
-            }
-        } else if (message.type === "updateUserStatus") {
-            window.PureCloud.User.updateStatus(message.data);
-            window.PureCloud.Interaction.updateState(message.data);
-        }
-    }
-});
