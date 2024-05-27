@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Genesys Cloud Embeddable Framework Demo</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+        .iframe-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #FF4F1F;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .iframe-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
+            display: none;
+            border: 1px solid #ccc;
+            z-index: 1000;
+        }
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video-->
+    <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="assets/mp4/hongkong.mp4" type="video/mp4" />
+    </video>
+    <!-- Masthead-->
+    <div class="masthead">
+        <div class="masthead-content text-white">
+            <div class="container-fluid px-4 px-lg-0">
+                <h1 class="fst-italic lh-1 mb-4">Genesys Cloud Embeddable Framework Demo</h1>
+                <!-- Contact Form -->
+                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                    <!-- Phone Number input-->
+                    <div class="row input-group-newsletter">
+                        <div class="col"><input class="form-control" id="phone" type="tel" placeholder="電話號碼" aria-label="Enter phone number..." data-sb-validations="required,phone" /></div>
+                    </div>
+                    <div class="invalid-feedback mt-2" data-sb-feedback="phone:required">A phone number is required.</div>
+                    <div class="invalid-feedback mt-2" data-sb-feedback="phone:phone">Phone number is not valid.</div>
+                    <div class="row input-group-newsletter mt-3"></div>  
+                    <!-- User Name input-->
+                    <div class="row input-group-newsletter">
+                        <div class="col"><input class="form-control" id="name" type="text" placeholder="專員名稱" aria-label="Enter name..." data-sb-validations="required" /></div>
+                    </div>
+                    <div class="invalid-feedback mt-2" data-sb-feedback="name:required">A name is required.</div>
+                    <!-- Submit success message-->
+                    <div class="d-none" id="submitSuccessMessage">
+                        <div class="text-center mb-3 mt-2">
+                            <div class="fw-bolder">Form submission successful!</div>
+                            To activate this form, sign up at
+                            <br />
+                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                        </div>
+                    </div>
+                    <!-- Submit error message-->
+                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3 mt-2">Error sending message!</div></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Iframe Icon and Container -->
+    <div class="iframe-icon" onclick="toggleIframe()">
+        <i class="fas fa-comments"></i>
+    </div>
+    <div class="iframe-container" id="iframeContainer">
+        <iframe src="https://apps.mypurecloud.jp/crm/embeddableFramework.html"></iframe>
+    </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- Framework JS -->
+    <script src="framework.js"></script>
+    <script>
+        function toggleIframe() {
+            var iframeContainer = document.getElementById('iframeContainer');
+            if (iframeContainer.style.display === 'none' || iframeContainer.style.display === '') {
+                iframeContainer.style.display = 'block';
+            } else {
+                iframeContainer.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
