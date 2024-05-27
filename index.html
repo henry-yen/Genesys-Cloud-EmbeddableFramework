@@ -88,7 +88,6 @@
     <script src="js/scripts.js"></script>
     <!-- Framework JS -->
     <script src="framework.js"></script>
-    <script src="example.js"></script> <!-- Include the example.js script -->
     <script>
         function toggleIframe() {
             var iframeContainer = document.getElementById('iframeContainer');
@@ -98,6 +97,17 @@
                 iframeContainer.style.display = 'none';
             }
         }
+
+        window.addEventListener('message', function(event) {
+            // Add a check for the event origin if needed for security
+            // if (event.origin !== "https://your-trusted-origin.com") return;
+
+            var phoneNumber = event.data;
+            var phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.value = phoneNumber;
+            }
+        });
     </script>
 </body>
 </html>
