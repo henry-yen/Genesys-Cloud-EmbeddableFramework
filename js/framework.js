@@ -80,3 +80,35 @@ function updatePhoneNumber(interaction) {
         phoneInput.value = phoneNumber;
     }
 }
+
+window.addEventListener("message", function(event) {
+    // Add a check for the event origin if needed for security
+    // if (event.origin !== "https://your-trusted-origin.com") return;
+
+    var message;
+    try {
+        message = JSON.parse(event.data);
+    } catch (e) {
+        console.error("Invalid message format", e);
+        return;
+    }
+
+    if (message) {
+        if (message.type === "clickToDial") {
+            window.PureCloud.clickToDial(message.data);
+        } else if (message.type === "addAssociation") {
+            window.PureCloud.addAssociation(message.data);
+        } else if (message.type === "addCustomAttributes") {
+            window.PureCloud.addCustomAttributes(message.data);
+        } else if (message.type === "addTransferContext") {
+            window.PureCloud.addTransferContext(message.data);
+        } else if (message.type === "sendContactSearch") {
+            if (contactSearchCallback) {
+                contactSearchCallback(message.data);
+            }
+        } else if (message.type === "updateUserStatus") {
+            window.PureCloud.User.updateStatus(message.data);
+            window.PureCloud.Interaction.updateState(message.data);
+        }
+    }
+});
